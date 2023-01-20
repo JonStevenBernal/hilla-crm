@@ -17,8 +17,8 @@ export class ListView extends View {
         <vaadin-text-field placeholder="Filter by name" clear-button-visible></vaadin-text-field>
         <vaadin-button>Add Contact</vaadin-button>
       </div>
-      <div class="content flex gap-m h-full" .items=${crmStore.contacts}>
-          <vaadin-grid class="grid h-full">
+      <div class="content flex gap-m h-full">
+          <vaadin-grid class="grid h-full" .items=${crmStore.contacts}>
           <vaadin-grid-column path="firstName" auto-width> </vaadin-grid-column>
           <vaadin-grid-column path="lastName" auto-width> </vaadin-grid-column>
           <vaadin-grid-column path="email" auto-width> </vaadin-grid-column>
