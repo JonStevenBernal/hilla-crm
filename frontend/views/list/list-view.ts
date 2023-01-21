@@ -8,17 +8,24 @@ import '@vaadin/button';
 import '@vaadin/grid';
 import '@vaadin/grid/vaadin-grid-column';
 import './contact-form';
+import persons from './persons';
+import {listViewStore} from "Frontend/views/list/list-view-store";
 
 @customElement('list-view')
 export class ListView extends View {
   render() {
     return html`
       <div class="toolbar flex gap-s">
-        <vaadin-text-field placeholder="Filter by name" clear-button-visible></vaadin-text-field>
+        <vaadin-text-field 
+            placeholder="Filter by name" 
+            .value=${listViewStore.filterText} 
+            @input=${this.updateFilter} 
+            clear-button-visible>
+        </vaadin-text-field>
         <vaadin-button>Add Contact</vaadin-button>
       </div>
       <div class="content flex gap-m h-full">
-          <vaadin-grid class="grid h-full" .items=${crmStore.contacts}>
+          <vaadin-grid class="grid h-full" .items=${listViewStore.filteredContacts}>
           <vaadin-grid-column path="firstName" auto-width> </vaadin-grid-column>
           <vaadin-grid-column path="lastName" auto-width> </vaadin-grid-column>
           <vaadin-grid-column path="email" auto-width> </vaadin-grid-column>
@@ -28,7 +35,16 @@ export class ListView extends View {
         <!-- <vaadin-grid class="grid h-full" .items=${crmStore.contacts}></vaadin-grid> -->
         <contact-form class="flex flex-col gap-s"></contact-form>
       </div>
+        <vaadin-grid class="grid h-full" .items=${persons}>
+            <vaadin-grid-column path="firstName" header="First Name"></vaadin-grid-column>
+            <vaadin-grid-column path="lastName" header="Last Name"></vaadin-grid-column>
+            <vaadin-grid-column path="email" header="Email"></vaadin-grid-column>
+        <vaadin-grid>
     `;
+  }
+
+  updateFilter(e: { target: HTMLInputElement }) {
+    listViewStore.updateFilter(e.target.value);
   }
 
   connectedCallback() {
