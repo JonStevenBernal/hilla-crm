@@ -5,11 +5,12 @@ import { makeAutoObservable, observable } from 'mobx';
 
 class ListViewStore {
     filterText = '';
+    selectedContact: Contact | null = null;
 
     constructor() {
         makeAutoObservable(
             this,
-            {},
+            { selectedContact: observable.ref },
             { autoBind: true }
         );
     }
@@ -25,6 +26,12 @@ class ListViewStore {
             filter.test(`${contact.firstName} ${contact.lastName}`)
         );
     }
+
+    setSelectedContact(contact: Contact) {
+        this.selectedContact = contact;
+    }
+
+
 }
 
 export const listViewStore = new ListViewStore();

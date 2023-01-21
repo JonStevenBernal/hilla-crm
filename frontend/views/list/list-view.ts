@@ -25,7 +25,11 @@ export class ListView extends View {
         <vaadin-button>Add Contact</vaadin-button>
       </div>
       <div class="content flex gap-m h-full">
-          <vaadin-grid class="grid h-full" .items=${listViewStore.filteredContacts}>
+          <vaadin-grid class="grid h-full" 
+                       .items=${listViewStore.filteredContacts}
+                       .selectedItems=${[listViewStore.selectedContact]}
+                       @active-item-changed=${this.handleGridSelection}
+            >
           <vaadin-grid-column path="firstName" auto-width> </vaadin-grid-column>
           <vaadin-grid-column path="lastName" auto-width> </vaadin-grid-column>
           <vaadin-grid-column path="email" auto-width> </vaadin-grid-column>
@@ -58,5 +62,15 @@ export class ListView extends View {
         'w-full',
         'h-full'
     );
+  }
+
+  // vaadin-grid fires a null-event when initialized. Ignore it.
+  firstSelectionEvent = true;
+  handleGridSelection(e: CustomEvent) {
+    if (this.firstSelectionEvent) {
+      this.firstSelectionEvent = false;
+      return;
+    }
+    listViewStore.setSelectedContact(e.detail.value);
   }
 }
