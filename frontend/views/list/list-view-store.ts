@@ -31,6 +31,14 @@ class ListViewStore {
         this.selectedContact = contact;
     }
 
+    editNew() {
+        this.selectedContact = ContactModel.createEmptyValue();
+    }
+
+    cancelEdit() {
+        this.selectedContact = null;
+    }
+
 
 }
 
