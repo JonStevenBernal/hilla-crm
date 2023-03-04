@@ -57,7 +57,7 @@ public class CrmEndpoint {
         return contactRepository.save(contact);
     }
 
-    public void deleteContact(UUID contactId) {
+    public void deleteContact(Long contactId) {
         contactRepository.deleteById(contactId);
     }
 
