@@ -16,6 +16,7 @@ import java.util.UUID;
 
 @Endpoint
 @AnonymousAllowed
+@PermitAll
 public class CrmEndpoint {
 
     private ContactRepository contactRepository;
